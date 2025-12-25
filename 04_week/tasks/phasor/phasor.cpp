@@ -3,6 +3,8 @@
 #include <format>
 #include <numbers>
 
+#define UNUSED(x) (static_cast<void>(x))
+
 static inline double to_rad(double deg) {
     return (deg * std::numbers::pi) / 180;
 }
@@ -67,11 +69,16 @@ Phasor::Phasor(double amplitude = 0.0, double phase = 0.0) {
     m_imag = amplitude * std::sin(phase);
 }
 
-Phasor::Phasor(double amplitude, double phase, ExpTag tag) : Phasor(amplitude, phase) {}
+Phasor::Phasor(double amplitude, double phase, ExpTag tag) : Phasor(amplitude, phase) {
+    UNUSED(tag);
+}
 
-Phasor::Phasor(double amplitude, double phase, DegTag tag) : Phasor(amplitude, to_rad(phase)) {}
+Phasor::Phasor(double amplitude, double phase, DegTag tag) : Phasor(amplitude, to_rad(phase)) {
+    UNUSED(tag);
+}
 
 Phasor::Phasor(double real, double imag, AlgTag tag) {
+    UNUSED(tag);
     m_real = real;
     m_imag = imag;
 }
